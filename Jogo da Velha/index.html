@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Velha</title>
+    <link rel="stylesheet" href="/assets/css/estilizacao.css">
+    <link rel="shortcut icon" href="/assets/img/jogo-da-velha.png" type="image/x-icon">
+</head>
+<body>
+
+        <div class="topo">
+            <h1>Jogo da Velha</h1>
+            <p id="mensagem">Mensagem do jogo (vez/fim)</p>
+        </div>
+        <div class="tabuleiro">
+                <button id="0" onclick="jogada(this)"></button>
+                <button id="1" onclick="jogada(this)"></button>
+                <button id="2" onclick="jogada(this)"></button>
+                <br>
+                <button id="3" onclick="jogada(this)"></button>
+                <button id="4" onclick="jogada(this)"></button>
+                <button id="5" onclick="jogada(this)"></button>
+                <br>
+                <button id="6" onclick="jogada(this)"></button>
+                <button id="7" onclick="jogada(this)"></button>
+                <button id="8" onclick="jogada(this)"></button>
+                <br><br>
+                <button class="reiniciarbtn" onclick="reinicia()">Reiniciar</button>                
+        </div>
+
+
+
+
+
+        <script>
+            var jog = "x"; //identificação do jogador
+            var tab = [];  //criação do array de tabuleiro (vazio)
+            //primeiro aviso de quem é a vez de jogar
+            mostraVez();
+            
+
+            function jogada(bt) {
+                console.log(tab[bt.id]);
+                if (typeof tab[bt.id] !== "undefined"){
+                    alert('Alguém já jogou ai!')
+                    return;
+                }
+                
+                tab[bt.id] = jog;
+                bt.innerHTML = `<img src="/assets/img/${jog}.png">`;
+                
+                //Teste horizontal, row
+                let i = 0;
+                while (i < 10){
+                    if (tab[i] == tab[i+1] && (tab[i] == tab[i+2]) &&
+                        typeof tab[bt.id] !== "undefined"){
+                        console.log('Acertou linha' + jog);
+                    }
+                    i+=3;
+                }
+
+
+                if (jog == "x")
+                    jog = "o";
+                else{
+                    jog = "x";
+                }    
+
+
+
+
+
+                mostraVez();
+
+            //    console.log(bt.id);
+            }
+
+
+            function mostraVez(){
+                document.getElementById("mensagem").innerHTML = 
+            'É a vez do jogador <img src="/assets/img/'+ jog +'.png">';
+            }
+
+            function reinicia(){
+                window.location.reload();
+            }
+        </script>
+</body>
+</html>
